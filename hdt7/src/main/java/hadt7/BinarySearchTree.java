@@ -87,7 +87,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements IBinaryTree
     }
 
     @Override
-    public void Inorder(Itraversal<K, V> traversalMethod) {
+    public void InOrder(Itraversal<K, V> traversalMethod) {
         if (isEmpty()){
             return;
         }else {

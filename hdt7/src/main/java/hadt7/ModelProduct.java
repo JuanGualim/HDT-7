@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class ModelProduct {
-    private ArrayList<Product> productos = new ArrayList<Product>();
-    public ModelProduct(){
+    private ArrayList<Product> productos;;
+    private BinarySearchTree<Integer, Product> arbol;
 
+    public ModelProduct(){
+        productos = new ArrayList<Product>();
     }
 
     public void cargarProductos(String filename) throws FileNotFoundException{
@@ -44,6 +46,27 @@ public class ModelProduct {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void datosEnArbolBinario (){
+        arbol = new BinarySearchTree<Integer, Product>();
+        for (Product p : productos) {
+            arbol.insert(p.getSku(), p);
+        }
+    }
+
+    public void mostrarArbol(){
+        ListarElementos<Integer, Product> listar = new ListarElementos<>();
+        arbol.InOrder(listar);
+    }
+    
+    public void busqueda(int sku) {
+        Product p = arbol.search(sku);
+        if (p != null) {
+            System.out.println("Producto encontrado: " + p.toString());
+        } else {
+            System.out.println("Producto no encontrado.");
         }
     }
 }

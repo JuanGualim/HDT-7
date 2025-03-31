@@ -6,7 +6,7 @@ public interface IBinaryTree<K extends Comparable<K>, V> {
    void insert (K key, V value);
     V search (K keyToFind);
     V remove (K keyToRemove);
-    void Inorder (Itraversal<K, V> traversalMethod);
+    void InOrder (Itraversal<K, V> traversalMethod);
     void Preorder (Itraversal<K, V> traversalMethod);
     void Postorder (Itraversal<K, V> traversalMethod);
 }
