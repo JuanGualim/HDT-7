@@ -1,15 +1,24 @@
 package hadt7;
 
 public class Product {
-    int sku;
+    long sku;
     double price_retail, price_current;
     String name, catagory;
+
+    public Product(long sku, String catagory, double price_retail, double price_current,
+            String name) {
+        this.sku = sku;
+        this.catagory = catagory;
+        this.price_retail = price_retail;
+        this.price_current = price_current;
+        this.name = name;
+    }
     
-    public int getSku() {
+    public long getSku() {
         return sku;
     }
 
-    public void setSku(int sku) {
+    public void setSku(long sku) {
         this.sku = sku;
     }
 
@@ -47,8 +56,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [sku=" + sku + ", price_retail=" + price_retail + ", price_current=" + price_current + ", name="
-                + name + ", catagory=" + catagory + "]";
+        return "--Product--\n-Sku: " + sku + "\nPrice_retail: " + price_retail + "\nPrice_current: " + price_current + "\nName_Product: "
+                + name + "\n-Catagory:" + catagory + "\n";
     }
 
     

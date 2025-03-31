@@ -107,14 +107,23 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements IBinaryTree
     }
 
     @Override
-    public void Postorder(Itraversal<K, V> traversalMethod) {
-        // TODO Auto-generated method stub
-        
+    public void ReverseInOrder(Itraversal<K, V> traversalMethod) {
+        if (isEmpty()){
+            return;
+        }else {
+            internalReverseInOrder(traversalMethod, root);
+        }
     }
 
-    @Override
-    public void Preorder(Itraversal<K, V> traversalMethod) {
-        // TODO Auto-generated method stub
-        
+    private void internalReverseInOrder(Itraversal<K, V> traversalMethod, BinaryTreeNode<K, V> actualNode){
+        if(actualNode.getRightChild() != null){
+            internalReverseInOrder(traversalMethod, actualNode.getRightChild());
+        }
+        traversalMethod.visitar(actualNode);
+
+        if(actualNode.getLeftChild() != null){
+            internalReverseInOrder(traversalMethod, actualNode.getLeftChild());
+        }
     }
+
 }
