@@ -1,11 +1,10 @@
 package hadt7;
 
 public class Product {
-    long sku;
     double price_retail, price_current;
-    String name, catagory;
+    String name, catagory, sku;
 
-    public Product(long sku, String catagory, double price_retail, double price_current,
+    public Product(String sku, String catagory, double price_retail, double price_current,
             String name) {
         this.sku = sku;
         this.catagory = catagory;
@@ -14,11 +13,11 @@ public class Product {
         this.name = name;
     }
     
-    public long getSku() {
+    public String getSku() {
         return sku;
     }
 
-    public void setSku(long sku) {
+    public void setSku(String sku) {
         this.sku = sku;
     }
 

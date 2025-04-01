@@ -19,15 +19,14 @@ public class MainBinaryTree {
     }
     
     model.datosEnArbolBinario();
-    model.datosEnArbolPorPrecio();
     int opcion = 0;
     while (opcion != 4){
     try{
         
             System.out.println("\n--Menu de opciones--");
             System.out.println("1. Buscar producto por SKU");
-            System.out.println("2. Listar productos por precio ascendente");
-            System.out.println("3. Listar productos por precio descendente");
+            System.out.println("2. Listar productos por SKU ascendente");
+            System.out.println("3. Listar productos por SKU descendente");
             System.out.println("4. Salir");
             System.out.print("Ingrese una opción: ");
             
@@ -35,14 +34,16 @@ public class MainBinaryTree {
             switch (opcion) {
                 case 1:
                     System.out.println("Ingrese el SKU del producto a buscar: ");
-                    long sku = scanner.nextLong();
+                    String sku = scanner.next();
                     model.busqueda(sku);
                     break;
                 case 2:
-                    model.mostrarArbolPorPrecioAscendente();
+                    System.out.println("Productos ordenados por SKU ascendente:");
+                    model.mostrarArbolAscendente();
                     break;
                 case 3:
-                    model.mostrarArbolPorPrecioDescendente();
+                    System.out.println("Productos ordenados por SKU descendente:");
+                    model.mostrarArbolDescendente();
                     break;
                 case 4:
                     System.out.println("Saliendo del programa...");

@@ -8,8 +8,7 @@ import java.util.*;
 
 public class ModelProduct {
     private ArrayList<Product> productos;;
-    private BinarySearchTree<Long, Product> arbol;
-    private BinarySearchTree<Double, List<Product>> arbolPorPrecio;
+    private BinarySearchTree<String, Product> arbol;
 
     public ModelProduct(){
         productos = new ArrayList<Product>();
@@ -31,19 +30,13 @@ public class ModelProduct {
                     continue;
                 }
 
-                String skuStr = values[6].trim(); // Columna SKU
-                if (!esNumeroLong(skuStr)) {
-                    continue; // Omitir esta fila
-                }
-
                 try {
-                    long sku = Long.parseLong(skuStr); // Convertir SKU a long
                     // Procesar el resto de las columnas y agregar el producto
                     double priceRetail = esNumeroDouble(values[9].trim()) ? Double.parseDouble(values[9].trim()) : 0.0;
                     double priceCurrent = esNumeroDouble(values[10].trim()) ? Double.parseDouble(values[10].trim()) : 0.0;
 
                     Product product = new Product(
-                        sku,
+                        values[6].trim(), // SKU,
                         values[0].trim(), // Categoría
                         priceRetail,
                         priceCurrent,
@@ -59,14 +52,6 @@ public class ModelProduct {
         }
     }
 
-    private boolean esNumeroLong(String str) {
-        try {
-            Long.parseLong(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }    
     private boolean esNumeroDouble(String str) {
         try {
             Double.parseDouble(str);
@@ -77,54 +62,36 @@ public class ModelProduct {
     }
 
     public void datosEnArbolBinario (){
-        arbol = new BinarySearchTree<Long, Product>();
+        arbol = new BinarySearchTree<String, Product>();
         for (Product p : productos) {
             arbol.insert(p.getSku(), p);
         }
     }
 
-    public void datosEnArbolPorPrecio(){
-        arbolPorPrecio = new BinarySearchTree<Double, List<Product>>();
-        for (Product p : productos) {
-            List<Product> listaProductos = arbolPorPrecio.search(p.getPrice_current());
-            if (listaProductos == null) {
-                listaProductos = new ArrayList<Product>();
-                arbolPorPrecio.insert(p.getPrice_current(), listaProductos);
-            }
-            listaProductos.add(p);
+    public void mostrarArbolAscendente(){
+        ListarElementos<String, Product> listar = new ListarElementos<>();
+        arbol.InOrder(listar);
+
+        ArrayList<Product> listaProductos = listar.getElementos();
+
+        for (Product p : listaProductos) {
+            System.out.println("\nSKU: " + p.getSku() + "\nNombre: " + p.getName() + "\nPrice_current: " + p.getPrice_current() + "\nPrice_Retail: " + p.getPrice_retail());
         }
     }
 
-    public void mostrarArbolPorPrecioAscendente(){
-        ListarElementos<Double, List<Product>> listar = new ListarElementos<>();
-        arbolPorPrecio.InOrder(listar);
+    public void mostrarArbolDescendente(){
+        ListarElementos<String, Product> listar = new ListarElementos<>();
+        arbol.ReverseInOrder(listar);
 
-        ArrayList<List<Product>> listaProductos = listar.getElementos();
+        ArrayList<Product> listaProductos = listar.getElementos();
 
-        for (List<Product> lista : listaProductos) {
-            System.out.println("Precio: " + lista.get(0).getPrice_current() + "\nProductos: ");
-            for (Product p : lista) {
-                System.out.println("Name: " + p.name + " - SKU: " + p.sku );
-            }
-        }
-    }
-
-    public void mostrarArbolPorPrecioDescendente(){
-        ListarElementos<Double, List<Product>> listar = new ListarElementos<>();
-        arbolPorPrecio.ReverseInOrder(listar);
-
-        ArrayList<List<Product>> listaProductos = listar.getElementos();
-
-        for (List<Product> lista : listaProductos) {
-            System.out.println("Precio: " + lista.get(0).getPrice_current() + "\nProductos: ");
-            for (Product p : lista) {
-                System.out.println("Name: " + p.name + " - SKU: " + p.sku );
-            }
+        for (Product p : listaProductos) {
+            System.out.println("\nSKU: " + p.getSku() + "\nNombre: " + p.getName() + "\nPrice_current: " + p.getPrice_current() + "\nPrice_Retail: " + p.getPrice_retail());
         }
 
     }
     
-    public void busqueda(long sku) {
+    public void busqueda(String sku) {
         Product p = arbol.search(sku);
         if (p != null) {
             System.out.println("Producto encontrado: " + p.toString());
