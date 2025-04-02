@@ -99,4 +99,16 @@ public class ModelProduct {
             System.out.println("Producto no encontrado.");
         }
     }
+
+    public void agregarProducto(Product p) {
+        productos.add(p);
+    }
+
+    public BinarySearchTree<String, Product> getArbol() {
+        return arbol;
+    }
+
+    public boolean productcsIsEmpty() {
+        return productos.isEmpty();
+    }
 }
